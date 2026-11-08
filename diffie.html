@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diffie Hellman</title>
+</head>
+<body>
+
+    <h2>Diffie-Hellman Key Exchange</h2>
+
+    <label>Enter Prime Number (p):</label>
+    <input type="number" id="p"><br><br>
+
+    <label>Enter Generator (g):</label>
+    <input type="number" id="g"><br><br>
+
+    <label>Enter Alice's Private Key:</label>
+    <input type="number" id="a"><br><br>
+
+    <button onclick="calculate()">Generate Keys</button>
+
+    <h3>Results</h3>
+    <p id="result"></p>
+
+    <script>
+
+        function calculate() {
+
+            let p = Number(document.getElementById("p").value);
+            let g = Number(document.getElementById("g").value);
+            let a = Number(document.getElementById("a").value);
+
+            // Bob's private key
+            let b = 15;
+
+            // Alice's public key
+            let A = Math.pow(g, a) % p;
+
+            // Bob's public key
+            let B = Math.pow(g, b) % p;
+
+            // Shared secret keys
+            let keyA = Math.pow(B, a) % p;
+            let keyB = Math.pow(A, b) % p;
+
+            document.getElementById("result").innerHTML =
+                "Alice's Public Key: " + A + "<br>" +
+                "Bob's Public Key: " + B + "<br>" +
+                "Alice's Shared Key: " + keyA + "<br>" +
+                "Bob's Shared Key: " + keyB;
+        }
+
+    </script>
+
+</body>
+</html>
