@@ -1,27 +1,26 @@
 
-import java.security.MessageDigest;
+import java.util.*;
+import java.security.*;
 
 public class MD5 {
-
     public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
 
-        // Create MD5 object
+        System.out.print("Enter text: ");
+        String text = sc.nextLine();
+
         MessageDigest md = MessageDigest.getInstance("MD5");
 
-        // Input message
-        String input = "Hello World";
+        byte[] hash = md.digest(text.getBytes("UTF-8"));
 
-        // Generate message digest
-        byte[] digest = md.digest(input.getBytes());
+        StringBuilder hex = new StringBuilder();
 
-        // Convert digest into hexadecimal
-        String result = "";
-
-        for(int i = 0; i < digest.length; i++) {
-            result += String.format("%02X", digest[i] & 0xff);
+        for (byte b : hash) {
+            hex.append(String.format("%02x", b));
         }
 
-        System.out.println("Original Text: " + input);
-        System.out.println("MD5 Digest: " + result);
+        System.out.println("MD5 Hash: " + hex);
+
+        sc.close();
     }
 }
