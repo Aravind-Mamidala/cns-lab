@@ -1,27 +1,26 @@
 
-import java.security.MessageDigest;
+import java.util.*;
+import java.security.*;
 
-public class SHA1 {
-
+public class SHA {
     public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
 
-        // Create SHA-1 object
+        System.out.print("Enter text: ");
+        String text = sc.nextLine();
+
         MessageDigest md = MessageDigest.getInstance("SHA-1");
 
-        // Input message
-        String input = "Hello World";
+        byte[] hash = md.digest(text.getBytes("UTF-8"));
 
-        // Generate message digest
-        byte[] digest = md.digest(input.getBytes());
+        StringBuilder hex = new StringBuilder();
 
-        // Convert digest into hexadecimal
-        String result = "";
-
-        for(int i = 0; i < digest.length; i++) {
-            result += String.format("%02X", digest[i] & 0xff);
+        for (byte b : hash) {
+            hex.append(String.format("%02x", b));
         }
 
-        System.out.println("Original Text: " + input);
-        System.out.println("SHA-1 Digest: " + result);
+        System.out.println("SHA-1 Hash: " + hex);
+
+        sc.close();
     }
 }
